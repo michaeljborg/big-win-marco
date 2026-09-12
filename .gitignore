@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+logs/
+config/_tesseract_whitelist.cfg

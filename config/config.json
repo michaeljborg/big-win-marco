@@ -1,0 +1,94 @@
+{
+  "adb": {
+    "host": "127.0.0.1",
+    "port": 5555,
+    "device_serial": null,
+    "candidate_ports": [
+      5555,
+      5556,
+      5565,
+      5575,
+      5585,
+      5637
+    ],
+    "tap_duration_ms": 30
+  },
+  "calibration": {
+    "device_width": 1600,
+    "device_height": 900,
+    "calibrated_at": "2026-09-12T03:36:49"
+  },
+  "points": {
+    "open_pack": {
+      "x": 316,
+      "y": 336
+    },
+    "select_pack": {
+      "x": 800,
+      "y": 460
+    },
+    "confirm_purchase": {
+      "x": 963,
+      "y": 806
+    },
+    "card_select": {
+      "x": 800,
+      "y": 276
+    },
+    "next_card": {
+      "x": 540,
+      "y": 436
+    },
+    "sell_button": {
+      "x": 803,
+      "y": 786
+    },
+    "confirm_sell": {
+      "x": 950,
+      "y": 560
+    },
+    "continue_close": {
+      "x": 1246,
+      "y": 786
+    }
+  },
+  "regions": {
+    "name_crop": {
+      "x": 636,
+      "y": 650,
+      "w": 410,
+      "h": 73
+    }
+  },
+  "timings": {
+    "post_tap_min_delay_s": 0.15,
+    "post_open_pack_delay_s": 0.3,
+    "pack_open_settle_delay_s": 5.0,
+    "card_advance_settle_delay_s": 1.0,
+    "post_sell_delay_s": 1.0,
+    "post_confirm_delay_s": 1.0,
+    "post_continue_delay_s": 1.0
+  },
+  "ocr": {
+    "engine": "tesseract",
+    "tesseract_cmd": "C:\\Program Files\\Tesseract-OCR\\tesseract.exe",
+    "psm": 7,
+    "whitelist": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' -",
+    "upscale_factor": 3.5,
+    "text_hue_min": 15,
+    "text_hue_max": 40,
+    "text_sat_min": 100,
+    "text_val_min": 120,
+    "match_threshold": 90
+  },
+  "safety": {
+    "start_hotkey": "f9",
+    "stop_hotkey": "f10",
+    "max_packs": null,
+    "dry_run": true
+  },
+  "logging": {
+    "save_all_crops": false,
+    "save_crops_on_uncertain": true
+  }
+}

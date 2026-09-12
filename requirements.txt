@@ -1,0 +1,12 @@
+adbutils>=1.2.0
+opencv-python>=4.8
+pillow>=10.0
+numpy>=1.24
+pytesseract>=0.3.10
+rapidfuzz>=3.0
+keyboard>=0.13.5
+
+# Optional - only needed if you set "ocr": {"engine": "easyocr"} in config.json
+# because Tesseract isn't reading the game's font reliably. Pulls in torch,
+# so it's kept out of the default install.
+# easyocr
