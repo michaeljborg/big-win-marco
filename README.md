@@ -101,53 +101,6 @@ python main.py --live --once      # one pack, watch it actually sell
 python main.py --live             # run continuously until F10 or --max-packs
 ```
 
-## Troubleshooting
-
-- **"Could not connect to BlueStacks over ADB on any candidate port"** —
-  double check ADB is enabled in BlueStacks (1a) and that the port shown
-  there is reachable; add it to `adb.candidate_ports` in `config.json` if
-  it's unusual.
-- **"Connected device resolution ... does not match the calibrated
-  resolution"** — BlueStacks' display resolution changed since calibration.
-  Either fix it back, or re-run `python -m bwm.calibration_tool`.
-- **F9/F10 don't do anything** — the `keyboard` library installs a low-level
-  global hook; try running from a plain (non-elevated) terminal first, and
-  make sure no other app is already bound to those keys.
-- **A tap registers as a press-and-hold instead of a quick tap** (e.g. the
-  game opens a preview/tooltip instead of advancing) — raise or lower
-  `adb.tap_duration_ms` in `config.json` (default 30ms). Taps are sent as a
-  same-point swipe with this exact duration rather than a plain `input tap`,
-  since some Android/BlueStacks builds give `input tap` a longer built-in
-  press than the game's tap-vs-hold threshold expects.
-- **OCR reads garbage consistently** — OCR isolates the name text by color
-  (the game renders it in one consistent gold/yellow, regardless of the
-  background art behind it) rather than by grayscale brightness, so it's
-  usually robust to busy card-art backgrounds. If reads are still bad,
-  first tighten the `name_crop` rectangle in the calibration tool so it's
-  just the glyphs, no surrounding art/border/icons. If the name text isn't
-  actually gold/yellow (e.g. a different pack tier), retune `ocr.text_hue_min`
-  /`text_hue_max`/`text_sat_min`/`text_val_min` in `config.json` to match -
-  sample a real crop's pixel colors (`cv2.imread` + inspect BGR/HSV values)
-  to find the right range. If it's still unreliable, set
-  `"engine": "easyocr"` under `ocr` in `config.json` (after
-  `pip install easyocr`) — the rest of the pipeline is unchanged.
-- **A real card name comes back with junk prefixed/suffixed to it** (e.g.
-  `"' Reaction"`) — a same-colored UI element (an icon, rarity ribbon, etc.)
-  is bleeding into a corner of `name_crop`. Fuzzy matching tolerates this
-  fine in practice, but for cleaner reads, tighten `name_crop` in the
-  calibration tool to exclude that corner.
-- **OCR reads a blurry/mid-transition frame, or the previous card's name** —
-  the fixed waits under `timings` (`pack_open_settle_delay_s`,
-  `card_advance_settle_delay_s`) are too short for how long the transition
-  actually takes on your machine. Bump them up in `config.json` and re-run a
-  dry run.
-  Conversely, if reads are consistently clean well before the wait ends,
-  you can shorten them to speed up the grind.
-
-For a walkthrough of how the current OCR preprocessing (color-based text
-masking) was diagnosed and why a couple of tempting alternatives were
-rejected along the way, see [docs/OCR_DEBUGGING.md](docs/OCR_DEBUGGING.md).
-
 ## Project layout
 
 ```
